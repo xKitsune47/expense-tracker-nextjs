@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Bar,
@@ -9,21 +10,23 @@ import {
   YAxis,
 } from "recharts";
 
-const BarChartInEx = ({
-  incomeExpense,
-}: {
-  name: string;
-  income: number;
-  expense: number;
-}[]) => {
+type Props = {
+  incomeExpense: {
+    name: string;
+    Income: number;
+    Expense: number;
+  }[];
+};
+
+const BarChartInEx = ({ incomeExpense }: Props) => {
   return (
     <BarChart data={incomeExpense} responsive width={500} height={500}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis width="auto" />
       <Tooltip />
-      <Bar dataKey="income" fill="#00c951" activeBar={<Rectangle />} />
-      <Bar dataKey="expense" fill="#fb2c36" activeBar={<Rectangle />} />
+      <Bar dataKey="Income" fill="#00c951" activeBar={<Rectangle />} />
+      <Bar dataKey="Expense" fill="#fb2c36" activeBar={<Rectangle />} />
     </BarChart>
   );
 };

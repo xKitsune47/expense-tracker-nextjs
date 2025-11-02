@@ -1,5 +1,7 @@
+"use client";
 import React, { useEffect } from "react";
 import { Cell, Pie, PieChart, Sector, Tooltip } from "recharts";
+import { FormattedExpensesArrayItem } from "../dashboard/charts/page";
 
 type Coordinate = {
   x: number;
@@ -22,7 +24,9 @@ type PieSectorDataItem = React.SVGProps<SVGPathElement> &
   Partial<React.ComponentProps<typeof Sector>> &
   PieSectorData;
 
-type formattedExpensesArrayItem = { name: string; value: number };
+type Props = {
+  formattedExpensesArray: FormattedExpensesArrayItem[];
+};
 
 const PIE_CHART_COLORS: string[] = [
   "#ff6900",
@@ -37,22 +41,37 @@ const PIE_CHART_COLORS: string[] = [
   "#ff2056",
 ];
 
-const PieChartCategories = ({
-  formattedExpensesArray,
-}: formattedExpensesArrayItem[]) => {
+const PieChartCategories = ({ formattedExpensesArray }: Props) => {
+  useEffect(() => {
+    const func = async () => {
+      const res1 = await fetch("/api/dashboard?uid=1", {
+        method: "POST",
+        body: JSON.stringify({
+          data: "usu",
+        }),
+      });
+      const data1 = await res1.json();
+      const res2 = await fetch("/api/dashboard?uid=1");
+      const data2 = await res2.json();
+      if (data1 && data2) console.log(data1, data2);
+    };
+
+    func();
+  });
+
   return (
-    <PieChart width={500} height={500}>
+    <PieChart width={600} height={500}>
       <Pie
         activeShape={renderActiveShape}
         data={formattedExpensesArray.filter(
-          (el: formattedExpensesArrayItem) => el.value > 0
+          (el: FormattedExpensesArrayItem) => el.value > 0
         )}
         innerRadius={100}
         outerRadius={150}
         dataKey="value"
         isAnimationActive={true}>
         {formattedExpensesArray
-          .filter((el: formattedExpensesArrayItem) => el.value > 0)
+          .filter((el: FormattedExpensesArrayItem) => el.value > 0)
           .map((entry, index) => (
             <Cell
               key={`cell-${index}`}

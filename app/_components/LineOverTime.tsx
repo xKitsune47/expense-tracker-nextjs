@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   CartesianGrid,
@@ -8,7 +9,11 @@ import {
   YAxis,
 } from "recharts";
 
-const LineOverTime = ({ noIncomeArray }: { name: string; value: number }[]) => {
+type Props = {
+  noIncomeArray: { name: string; Value: number }[];
+};
+
+const LineOverTime = ({ noIncomeArray }: Props) => {
   return (
     <LineChart width={500} height={500} responsive data={noIncomeArray}>
       <CartesianGrid strokeDasharray="3 3" />
