@@ -1,20 +1,9 @@
 // https://nextjs.org/docs/pages/building-your-application/routing/api-routes
 // https://nextjs.org/blog/building-apis-with-nextjs#2-why-and-when-to-build-apis-with-nextjs
 
+import { Categories } from "@/app/_types/types";
 import { Prisma, PrismaClient } from "@/app/generated/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-type Categories =
-  | "Food"
-  | "Transportation"
-  | "Housing"
-  | "Utilities"
-  | "Entertainment"
-  | "Health"
-  | "Education"
-  | "Shopping"
-  | "Travel"
-  | "Other";
 
 type PostRequestData = {
   id: number;
@@ -41,10 +30,9 @@ export const GET = async (request: NextRequest) => {
 };
 
 export const POST = async (request: NextRequest) => {
-  // await request.json().then((data) => {
-  //   console.log(data);
-  // });
-  console.log(request.nextUrl.searchParams);
+  await request.json().then((data) => {
+    console.log(data);
+  });
   // console.log(await request.json());
   // await prisma.expense.create({
   //   data: {
